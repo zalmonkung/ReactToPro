@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 class App extends Component {
   state = { data: null, isLoading: false }
   componentDidMount() {
-    getdata();
+    fetch('https://192.168.2.127:8000')
+    .then(result => this.setState({ data: result }))
   }
   render() {
       const { data, isLoading } = this.state
@@ -15,21 +16,6 @@ class App extends Component {
           </div>
       )
   }
-}
-
-function getdata(){
-  const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root@localhost',
-    database: 'react_db'
-  });
-  connection.connect();
-
-  connection.query('SELECT 1+1 AS solution', function(error,result,fields){
-    if(error) throw error;
-    console.log('The solution is: ', result[0].solution);
-  });
-  connection.end();
 }
 
 export default App
