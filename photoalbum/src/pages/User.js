@@ -1,25 +1,32 @@
 import React, { Component } from 'react'
 import UserList from '../components/Users/UserList'
+import { connect } from 'react-redux'
+import { loadUsers } from '../actions'
 
 class Home extends Component {
-    state = { data: null, isLoading: false }
 
     componentDidMount() {
-        this.setState({ isLoading: true })
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(result => result.json())
-            .then(result => this.setState({ data: result, isLoading: false }))
+        this.props.dispatch(loadUsers())
     }
     render() {
-        const { data, isLoading } = this.state
+        const { users } = this.props
+        if (users.isRejected) {
+            return <div>Error...</div>
+        }
         return (
+
             <div>
                 <h1>Users</h1>
-                {isLoading && <div>Loading...</div>}
-                <UserList data={data} />
+                <UserList data={users.data} />
             </div>
         )
     }
 }
 
-export default Home
+function mapStateToProps(state) {
+    return {
+        users: state.users
+    }
+}
+
+export default connect(mapStateToProps)(Home)

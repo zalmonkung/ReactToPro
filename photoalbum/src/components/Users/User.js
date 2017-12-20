@@ -7,7 +7,7 @@ class User extends Component {
         return (
             <div>
                 <h3>
-                    <Link to={'/album/${data.id}'}>{data.name}</Link>
+                    <Link to={`/album/${data.id}`}>{data.name}</Link>
                 </h3>
             </div>
         )
