@@ -11,32 +11,56 @@ function countAge(state = 0, action) {
     }
 }
 
-const initialState = {isRejected: true, data:null}
+const initialState = { isRejected: true, data: null }
 function users(state = initialState, action) {
     switch (action.type) {
         case 'LOAD_USERS_PENDING':
-        return{
-            isRejected:false,
-            data:null
-        }
+            return {
+                isRejected: false,
+                data: null
+            }
         case 'LOAD_USERS_FULFILLED':
-            return{
-                isRejected:false,
-                data:action.payload
+            return {
+                isRejected: false,
+                data: action.payload
             }
         case 'LOAD_USERS_REJECTED':
-            return{
-                isRejected:true,
-                data:null
+            return {
+                isRejected: true,
+                data: null
             }
-            default:
+        default:
+            return state
+    }
+}
+
+// Call Album function
+function albums(state = initialState, action) {
+    switch (action.type) {
+        case 'LOAD_ALBUMS_PENDING':
+            return {
+                isReject: false,
+                data: null
+            }
+        case 'LOAD_ALBUMS_FULFILLED':
+            return {
+                isRejected: false,
+                data: action.payload
+            }
+        case 'LOAD_ALBUMS_REJECTED':
+            return {
+                isRejected: true,
+                data: null
+            }
+        default:
             return state
     }
 }
 
 const reducers = combineReducers({
     counter: countAge,
-    users
+    users,
+    albums
 })
 
 export default reducers
